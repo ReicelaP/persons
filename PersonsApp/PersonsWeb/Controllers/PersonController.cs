@@ -2,6 +2,7 @@
 using Persons.Core.Models;
 using Persons.Data;
 using Persons.Services;
+using PersonsWeb.Models;
 
 namespace PersonsWeb.Controllers
 {
@@ -20,7 +21,7 @@ namespace PersonsWeb.Controllers
             //return View(persons);
 
             List<User> users = _context.Users.ToList();
-            return View(users);
+            return View(new PersonViewModel { Users = users});
         }
 
         public IActionResult Create()
@@ -34,11 +35,11 @@ namespace PersonsWeb.Controllers
         {
             _context.Persons.Add(person);
 
-            //var user= new User();
-            //user.FullName = $"{person.FirstName} {person.LastName}";
-            //user.Age = DateTime.Now.Year - person.BirthDate.Year;
-            //user.Action = null;
-            //_context.Users.Add(user);
+            var user = new User();
+            user.FullName = $"{person.FirstName} {person.LastName}";
+            user.Age = DateTime.Now.Year - person.BirthDate.Year;
+            user.Action = null;
+            _context.Users.Add(user);
 
             _context.SaveChanges();
             return RedirectToAction("Index", "Person");
