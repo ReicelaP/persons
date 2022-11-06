@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Persons.Core.Models
 {
@@ -8,10 +8,11 @@ namespace Persons.Core.Models
         
         public string LastName { get; set; }
 
-        [Column(TypeName = "date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime BirthDate { get; set; }
         
-        public int PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
         
         public string Address { get; set; }
     }

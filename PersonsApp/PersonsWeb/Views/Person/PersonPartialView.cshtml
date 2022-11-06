@@ -26,14 +26,14 @@
                         </tr>
                         <tr>
                             <td align="right">Birth Date: </td>
-                            <td>@Html.TextBoxFor(m => m.BirthDate)</td>
+                            <td>@Html.TextBoxFor(m => m.BirthDate, new { @type = "date", @Value = Model.BirthDate.ToString("yyyy-MM-dd") })</td>
                         </tr>
                         <tr>
                             <td align="right">Phone Number(s): </td>
                             <td>@Html.TextBoxFor(m => m.PhoneNumber)</td>
                         </tr>
                         <tr>
-                            <td align="right">Adress: </td>
+                            <td align="right">Address: </td>
                             <td>@Html.TextBoxFor(m => m.Address)</td>
                         </tr>
                         <tr>

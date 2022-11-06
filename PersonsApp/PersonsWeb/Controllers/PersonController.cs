@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Persons.Core.Models;
 using Persons.Data;
-using Persons.Services;
 using PersonsWeb.Models;
 
 namespace PersonsWeb.Controllers
@@ -17,9 +16,6 @@ namespace PersonsWeb.Controllers
 
         public IActionResult Index()
         {
-            //List<Person> persons = _context.Persons.ToList();
-            //return View(persons);
-
             List<User> users = _context.Users.ToList();
             return View(new PersonViewModel { Users = users});
         }
