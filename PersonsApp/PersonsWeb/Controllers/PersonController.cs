@@ -31,14 +31,19 @@ namespace PersonsWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Person person)
+        public IActionResult Create(Person person, string btn)
         {
+            if(btn == "Cancel")
+            {
+                return RedirectToAction("Index", "Person");
+            }
+            
             _context.Persons.Add(person);
 
             var user = new User();
             user.FullName = $"{person.FirstName} {person.LastName}";
             user.Age = DateTime.Now.Year - person.BirthDate.Year;
-            user.Action = null;
+            user.Action = "single";
             _context.Users.Add(user);
 
             _context.SaveChanges();
