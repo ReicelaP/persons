@@ -55,7 +55,7 @@
                                 Address:
                             </div>
                             <div class="column right">
-                                @Html.TextBoxFor(m => m.Address, new { style="width:185px;" })
+                                @Html.TextBoxFor(m => m.Address, new { style="width:185px;", id="txtAddress" })
                             </div>
                         </div>
                         <div class="row">
@@ -80,7 +80,7 @@
     <div class="column left">
     </div>
     <div class="column right">
-        @Html.TextBoxFor(m => m.PhoneNumber, new { style="width:155px;" })
+        @Html.TextBoxFor(m => m.PhoneNumber, new { style="width:155px;", id="txtPhoneAdd" })
         <input type="button" id="remove" value="−" />
     </div>          
 </div>
@@ -96,8 +96,11 @@ function attach_delete(){
   $('#remove').off();
   $('#remove').click(function(){
     console.log("click");
-    $(this).closest('.address').remove();
+    $(this).closest('.form-group').remove();
   });
 }
 
+$("#txtPhone").val("")
+$("#txtPhoneAdd").val("")
+$("#txtAddress").val("")
 </script>
