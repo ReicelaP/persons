@@ -53,9 +53,14 @@ namespace PersonsWeb.Controllers
             return RedirectToAction("Index", "Person");
         }
 
-        public IActionResult AddPhoneNr()
+        public IActionResult SelectAction(string btn)
         {
-            return PartialView("PhoneNrPartialView");
+            if (btn == "Cancel")
+            {
+                return RedirectToAction("Index", "Person");
+            }
+
+            return RedirectToAction("Index", "Person");
         }
     }
 }

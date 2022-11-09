@@ -20,17 +20,103 @@
                 <td>
                     @Html.DisplayFor(modelItem => user.FullName)
                 </td>
-                <td>
+                <td class="age">
                     @Html.DisplayFor(modelItem => user.Age)
                 </td>
                 <td>
-                    <select class="form-select form-select-xs mb-3" aria-label=".form-select-xs example" disabled>
-                        <option selected>Select</option>
-                        <option value="Married">Married</option>
-                        <option value="Single">Single</option>
+                    <select class="form-select form-select-xs mb-3" aria-label=".form-select-xs example">
+                        <option value="select" class="a">- Select -</option>
+                        <option value="married" class="a">Married</option>
+                        <option value="single" class="a">Single</option>
                     </select>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+
+<script>
+
+$(function () {
+
+    $('select').change(function () {
+        if ($(this).val() == "single") {
+            $('#single').modal('show');
+        }
+
+        if ($(this).val() == "married") {
+            $('#married').modal('show');
+        }
+    });
+
+    $('.btnCancel').click(function() {
+        $('.form-select').val("select");
+        $('.modal').modal('hide');
+    });
+
+    $('#btnSave').click(function() {
+
+        $('#single').modal('hide');
+    });
+   
+
+        
+});
+
+
+</script>
+
+<div class="modal fade" id="single" aria-labelledby="singleLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="singleLabel">Single Dummy Popup</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="column right">
+                        :-)
+                    </div>
+                    <div class="column right">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column left">
+                    </div>
+                    <div class="column right">
+                        <input type="submit" name="btn" value="Cancel" class="btnCancel"/>
+                        <input type="submit" name="btn" value="Save" id="btnSave"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="married" aria-labelledby="marriedLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="marriedLabel">Select Spouse</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="column left">
+                        Spouse:
+                    </div>
+                    <div class="column right">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column left">
+                    </div>
+                    <div class="column right">
+                        <input type="submit" name="btn" value="Cancel" class="btnCancel"/>
+                        <input type="submit" name="btn" value="Save"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
