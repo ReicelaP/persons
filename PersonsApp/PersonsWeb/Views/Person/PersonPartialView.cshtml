@@ -1,4 +1,4 @@
-﻿@model Persons.Core.Models.Person
+﻿@model AddPersonViewModel
 
 <div class="container p-3">
     <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#addPerson">
@@ -15,40 +15,89 @@
             <div class="modal-body">
                 @using (Html.BeginForm("Create", "Person", FormMethod.Post))
                 {
-                    <table>
-                        <tr>
-                            <td align="right">First Name: </td>
-                            <td>@Html.TextBoxFor(m => m.FirstName, new { style="width:185px;" })</td>
-                        </tr>
-                        <tr>
-                            <td align="right">Last Name: </td>
-                            <td>@Html.TextBoxFor(m => m.LastName, new { style="width:185px;" })</td>
-                        </tr>
-                        <tr>
-                            <td align="right">Birth Date: </td>
-                            <td>@Html.TextBoxFor(m => m.BirthDate, new { @type = "date", @Value = Model.BirthDate.ToString("yyyy-MM-dd"), @style="width:185px;"})</td>
-                        </tr>
-                        <tr>
-                            <td align="right">Phone Number(s): </td>
-                            <td>
-                                @Html.TextBoxFor(m => m.PhoneNumber, new { style="width:155px;" })
-                                <button type="button" id="add">+</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="right">Address: </td>
-                            <td>@Html.TextBoxFor(m => m.Address, new { style="width:185px;" })</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td align="right">
+                    <div>
+                        <div class="row">
+                            <div class="column left">
+                                First Name:
+                            </div>
+                            <div class="column right">
+                                @Html.TextBoxFor(m => m.FirstName, new { style="width:185px;" })
+                            </div>
+                        </div>    
+                        <div class="row">
+                            <div class="column left">
+                                Last Name:
+                            </div>
+                            <div class="column right">
+                                @Html.TextBoxFor(m => m.LastName, new { style="width:185px;" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="column left">
+                                Birth Date:
+                            </div>
+                            <div class="column right">
+                                @Html.TextBoxFor(m => m.BirthDate, new { @type = "date", @Value = Model.BirthDate.ToString("yyyy-MM-dd"), @style="width:185px;"})
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="column left">
+                                Phone Number(s):
+                            </div>
+                            <div class="column right">
+                                @Html.TextBoxFor(m => m.PhoneNumber, new { style="width:155px;", id="txtPhone" })
+                                <input type="button" id="btnAdd" value="+" />
+                            </div>
+                        </div>
+                        <div class="dynamic-body"></div>
+                        <div class="row address">
+                            <div class="column left">
+                                Address:
+                            </div>
+                            <div class="column right">
+                                @Html.TextBoxFor(m => m.Address, new { style="width:185px;" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="column left">
+                            </div>
+                            <div class="column rightBtn">
                                 <input type="submit" name="btn" value="Cancel"/>
                                 <input type="submit" name="btn" value="Save"/>
-                            </td>
-                        </tr>
-                    </table>          
+                            </div>
+                        </div>
+                    </div>
                 }
             </div>
         </div>
     </div>
 </div>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<!-- HIDDEN DYNAMIC ELEMENT-->
+<div class="form-group dynamic-element row" style="display:none">
+    <div class="column left">
+    </div>
+    <div class="column right">
+        @Html.TextBoxFor(m => m.PhoneNumber, new { style="width:155px;" })
+        <input type="button" id="remove" value="−" />
+    </div>          
+</div>
+<!-- END OF HIDDEN ELEMENT -->
+
+<script>
+$('#btnAdd').click(function(){
+  $('.dynamic-element').first().clone().appendTo('.dynamic-body').show();
+  attach_delete();
+});
+
+function attach_delete(){
+  $('#remove').off();
+  $('#remove').click(function(){
+    console.log("click");
+    $(this).closest('.address').remove();
+  });
+}
+
+</script>

@@ -22,18 +22,25 @@ namespace PersonsWeb.Controllers
 
         public IActionResult Create()
         {
-            var person = new Person();
+            var person = new AddPersonViewModel();
             return PartialView("PersonPartialView", person);
         }
 
         [HttpPost]
-        public IActionResult Create(Person person, string btn)
+        public IActionResult Create(AddPersonViewModel personModel, string btn)
         {
             if(btn == "Cancel")
             {
                 return RedirectToAction("Index", "Person");
             }
-            
+
+            var person = new Person();
+            person.FirstName = personModel.FirstName;
+            person.LastName = personModel.LastName;
+            person.BirthDate = personModel.BirthDate;
+            person.PhoneNumber = string.Join(",", personModel.PhoneNumber);
+            person.Address = string.Join(",", personModel.Address);
+
             _context.Persons.Add(person);
 
             var user = new User();
@@ -44,6 +51,11 @@ namespace PersonsWeb.Controllers
 
             _context.SaveChanges();
             return RedirectToAction("Index", "Person");
+        }
+
+        public IActionResult AddPhoneNr()
+        {
+            return PartialView("PhoneNrPartialView");
         }
     }
 }

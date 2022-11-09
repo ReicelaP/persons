@@ -7,9 +7,9 @@ namespace PersonsWeb.Models
         public PersonViewModel()
         {
             Users = new List<User>();
-            Person = new Person();
+            Person = new AddPersonViewModel();
         }
         public List<User> Users { get; set; }
-        public Person Person { get; set; }
+        public AddPersonViewModel Person { get; set; }
     }
 }
