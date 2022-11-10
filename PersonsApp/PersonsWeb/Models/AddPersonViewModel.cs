@@ -24,5 +24,7 @@ namespace PersonsWeb.Models
 
         [Required]
         public IList<string> Address { get; set; }
+
+        public string Primary { get; set; }
     }
 }

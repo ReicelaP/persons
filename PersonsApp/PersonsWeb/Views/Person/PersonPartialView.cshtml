@@ -50,13 +50,21 @@
                             </div>
                         </div>
                         <div class="dynamic-body"></div>
-                        <div class="row address">
-                            <div class="column left">
-                                Address:
+                        <div>Address</div>
+                        <div class="adressBox">
+                            <div class="row">
+                                <div class="column column1st">
+                                    @Html.TextAreaFor(m => m.Address, new { style="width:185px;", id="txtAddress" })
+                                </div>
+                                <div class="column column2nd">
+                                    @Html.RadioButtonFor(m => m.Primary, "primary") 
+                                    primary
+                                </div>
+                                <div class="column column3rd">
+                                    <input type="button" id="btnAddAddress" value="+" />
+                                </div>
                             </div>
-                            <div class="column right">
-                                @Html.TextBoxFor(m => m.Address, new { style="width:185px;", id="txtAddress" })
-                            </div>
+                            <div class="dynamic-body-address"></div>
                         </div>
                         <div class="row">
                             <div class="column left">
@@ -73,14 +81,27 @@
     </div>
 </div>
 
-<!-- HIDDEN DYNAMIC ELEMENT-->
+<!-- HIDDEN DYNAMIC ELEMENTS-->
 <div class="form-group dynamic-element row" style="display:none">
     <div class="column left">
     </div>
     <div class="column right">
         @Html.TextBoxFor(m => m.PhoneNumber, new { style="width:155px;", id="txtPhoneAdd" })
-        <input type="button" id="remove" value="−" />
+        <input type="button" class="remove" value="−" />
     </div>          
+</div>
+
+<div class="form-group dynamic-element row addresses" style="display:none">
+    <div class="column column1st">
+        @Html.TextAreaFor(m => m.Address, new { style="width:185px;", id="txtAddressAdd" })
+    </div>
+    <div class="column column2nd">
+        @Html.RadioButtonFor(m => m.Primary, "primary") 
+        primary
+    </div>
+    <div class="column column3rd">
+        <input type="button" class="remove" value="−" />
+    </div>
 </div>
 <!-- -------------------- -->
 
@@ -90,9 +111,14 @@ $('#btnAdd').click(function(){
   attach_delete();
 });
 
+$('#btnAddAddress').click(function(){
+  $('.addresses').first().clone().appendTo('.dynamic-body-address').show();
+  attach_delete();
+});
+
 function attach_delete(){
-  $('#remove').off();
-  $('#remove').click(function(){
+  $('.remove').off();
+  $('.remove').click(function(){
   $(this).closest('.form-group').remove();
   });
 };
@@ -100,4 +126,5 @@ function attach_delete(){
 $("#txtPhone").val("");
 $("#txtPhoneAdd").val("");
 $("#txtAddress").val("");
+$("#txtAddressAdd").val("");
 </script>
