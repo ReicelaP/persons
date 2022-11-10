@@ -57,10 +57,10 @@
                                     new { style="width:155px;", 
                                     id="txtPhone", 
                                     required="required" })
-                                <input type="button" id="btnAdd" value="+" />
+                                <input type="button" id="btnAddPhone" value="+" />
                             </div>
                         </div>
-                        <div class="dynamic-body"></div>
+                        <div class="dynamic-body-phone"></div>
                         <div>Address</div>
                         <div class="adressBox">
                             <div class="row">
@@ -96,7 +96,7 @@
 </div>
 
 <!-- HIDDEN DYNAMIC ELEMENTS-->
-<div class="form-group dynamic-element row" style="display:none">
+<div class="form-group dynamic-element row phones" style="display:none">
     <div class="column left">
     </div>
     <div class="column right">
@@ -120,8 +120,8 @@
 <!-- -------------------- -->
 
 <script>
-$('#btnAdd').click(function(){
-  $('.dynamic-element').first().clone().appendTo('.dynamic-body').show();
+$('#btnAddPhone').click(function(){
+  $('.phones').first().clone().appendTo('.dynamic-body-phone').show();
   attach_delete();
 });
 
