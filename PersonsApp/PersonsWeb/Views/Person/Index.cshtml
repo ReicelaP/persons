@@ -66,12 +66,11 @@ $(function () {
 
         $(element).prop('disabled', true);
         $(element).removeClass('chosen');
-
     });
    
     $('#btnSaveMarried').click(function() {
         const element = $('select.chosen');
-        const text = (element).find('option[value="married"]').text() + ' (' + $('#DataList').val() + ')';
+        const text = (element).find('option[value="married"]').text() + ' (' + $('#DataList').val().replace(/([0-9(])/g, '');
         (element).find('option[value="married"]').text(text)
         $(element).prop('disabled', true);
         $(element).removeClass('chosen');
@@ -126,7 +125,7 @@ $(function () {
                             <datalist id="datalistOptions">
                             @foreach(var user in Model.Users)
                             {
-                                <option value = "@user.FullName" />
+                                <option value = "@user.FullName (@user.Age)" />
                             }
                         </datalist>
                     </div>
