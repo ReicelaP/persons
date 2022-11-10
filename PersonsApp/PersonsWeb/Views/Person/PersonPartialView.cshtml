@@ -21,7 +21,9 @@
                                 First Name:
                             </div>
                             <div class="column right">
-                                @Html.TextBoxFor(m => m.FirstName, new { style="width:185px;" })
+                                @Html.TextBoxFor(m => m.FirstName, 
+                                    new { style="width:185px;", 
+                                    required="required" })
                             </div>
                         </div>    
                         <div class="row">
@@ -29,7 +31,9 @@
                                 Last Name:
                             </div>
                             <div class="column right">
-                                @Html.TextBoxFor(m => m.LastName, new { style="width:185px;" })
+                                @Html.TextBoxFor(m => m.LastName, 
+                                    new { style="width:185px;", 
+                                    required="required" })
                             </div>
                         </div>
                         <div class="row">
@@ -37,7 +41,11 @@
                                 Birth Date:
                             </div>
                             <div class="column right">
-                                @Html.TextBoxFor(m => m.BirthDate, new { @type = "date", @Value = Model.BirthDate.ToString("yyyy-MM-dd"), @style="width:185px;"})
+                                @Html.TextBoxFor(m => m.BirthDate, 
+                                    new { @type = "date", 
+                                    @Value = Model.BirthDate.ToString("yyyy-MM-dd"), 
+                                    @style="width:185px;", 
+                                    required="required" })
                             </div>
                         </div>
                         <div class="row">
@@ -45,7 +53,10 @@
                                 Phone Number(s):
                             </div>
                             <div class="column right">
-                                @Html.TextBoxFor(m => m.PhoneNumber, new { style="width:155px;", id="txtPhone" })
+                                @Html.TextBoxFor(m => m.PhoneNumber, 
+                                    new { style="width:155px;", 
+                                    id="txtPhone", 
+                                    required="required" })
                                 <input type="button" id="btnAdd" value="+" />
                             </div>
                         </div>
@@ -54,7 +65,10 @@
                         <div class="adressBox">
                             <div class="row">
                                 <div class="column column1st">
-                                    @Html.TextAreaFor(m => m.Address, new { style="width:185px;", id="txtAddress" })
+                                    @Html.TextAreaFor(m => m.Address, 
+                                        new { style="width:185px;", 
+                                        id="txtAddress", 
+                                        required="required" })
                                 </div>
                                 <div class="column column2nd">
                                     @Html.RadioButtonFor(m => m.Primary, "primary") 
@@ -70,7 +84,7 @@
                             <div class="column left">
                             </div>
                             <div class="column rightBtn">
-                                <input type="submit" name="btn" value="Cancel"/>
+                                <input type="submit" name="btn" value="Cancel" formnovalidate/>
                                 <input type="submit" name="btn" value="Save"/>
                             </div>
                         </div>
