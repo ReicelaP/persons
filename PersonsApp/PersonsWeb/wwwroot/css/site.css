@@ -33,6 +33,12 @@ body {
     width: 50%;
 }
 
+.third {
+    text-align: right;
+    float: left;
+    width: 80%;
+}
+
 .rightBtn {
     text-align: right;
     float: left;
