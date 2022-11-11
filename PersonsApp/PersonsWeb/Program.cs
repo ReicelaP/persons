@@ -1,10 +1,11 @@
 using Microsoft.EntityFrameworkCore;
+using Persons.Core.Models;
+using Persons.Core.Services;
 using Persons.Data;
 using Persons.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<PersonsDbContext>(options =>
@@ -12,15 +13,16 @@ builder.Services.AddDbContext<PersonsDbContext>(options =>
     .GetConnectionString("persons-database")));
 
 builder.Services.AddScoped<IPersonsDbContext, PersonsDbContext>();
-builder.Services.AddScoped<CrudService>();
+builder.Services.AddScoped<ICrudService, CrudService>();
+builder.Services.AddScoped<IEntityService<Person>, EntityService<Person>>();
+builder.Services.AddScoped<IEntityService<User>, EntityService<User>>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
