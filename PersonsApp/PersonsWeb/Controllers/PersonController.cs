@@ -1,22 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Persons.Core.Models;
-using Persons.Data;
+using Persons.Core.Services;
 using PersonsWeb.Models;
 
 namespace PersonsWeb.Controllers
 {
     public class PersonController : Controller
     {
-        private readonly PersonsDbContext _context;
+        private readonly IEntityService<Person> _personService;
+        private readonly IUserService _userService;
 
-        public PersonController(PersonsDbContext context)
+        public PersonController
+            (IEntityService<Person> personService, 
+            IUserService userService)
         {
-            _context = context;
+            _personService = personService;
+            _userService = userService;
         }
 
         public IActionResult Index()
         {
-            List<User> users = _context.Users.ToList();
+            List<User> users = _userService.GetAll();
             return View(new PersonViewModel { Users = users});
         }
 
@@ -27,13 +31,8 @@ namespace PersonsWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(AddPersonViewModel personModel, string btn)
+        public IActionResult Create(AddPersonViewModel personModel)
         {
-            if(btn == "Cancel")
-            {
-                return RedirectToAction("Index", "Person");
-            }
-
             var person = new Person();
             person.FirstName = personModel.FirstName;
             person.LastName = personModel.LastName;
@@ -41,26 +40,10 @@ namespace PersonsWeb.Controllers
             person.PhoneNumber = string.Join(",", personModel.PhoneNumber);
             person.Address = string.Join(",", personModel.Address);
 
-            _context.Persons.Add(person);
-
-            var user = new User();
-            user.FullName = $"{person.FirstName} {person.LastName}";
-            user.Age = DateTime.Now.Year - person.BirthDate.Year;
-            user.Action = "single";
-            _context.Users.Add(user);
-
-            _context.SaveChanges();
-            return RedirectToAction("Index", "Person");
-        }
-
-        public IActionResult SelectAction(string btn)
-        {
-            if (btn == "Cancel")
-            {
-                return RedirectToAction("Index", "Person");
-            }
+            _personService.Create(person);
+            _userService.CreateUser(person);
 
             return RedirectToAction("Index", "Person");
-        }
+        }     
     }
 }
