@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Persons.Core.Models;
+using Persons.Core.Services;
 using Persons.Data;
 
 namespace Persons.Services
 {
-    public class CrudService
+    public class CrudService : ICrudService
     {
-        private readonly IPersonsDbContext _context;
+        protected IPersonsDbContext _context;
 
         public CrudService(IPersonsDbContext context)
         {
