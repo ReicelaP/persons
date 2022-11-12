@@ -23,7 +23,8 @@
                             <div class="column right">
                                 @Html.TextBoxFor(m => m.FirstName, 
                                     new { style="width:185px;", 
-                                    required="required" })
+                                     })
+                                @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
                             </div>
                         </div>    
                         <div class="row">
@@ -71,7 +72,8 @@
                                         required="required" })
                                 </div>
                                 <div class="column column2nd">
-                                    @Html.RadioButtonFor(m => m.Primary, "primary") 
+                                    @Html.RadioButtonFor(m => m.Primary, "primary", 
+                                    new { required="required" }) 
                                     primary
                                 </div>
                                 <div class="column column3rd">
@@ -84,7 +86,7 @@
                             <div class="column left">
                             </div>
                             <div class="column rightBtn">
-                                <input type="submit" name="btn" value="Cancel" formnovalidate/>
+                                <input type="button" name="btn" value="Cancel" id="btnCancel" formnovalidate/>
                                 <input type="submit" name="btn" value="Save"/>
                             </div>
                         </div>
@@ -120,6 +122,10 @@
 <!-- -------------------- -->
 
 <script>
+$('#btnCancel').click(function() {
+    $('.modal').modal('hide');
+});
+
 $('#btnAddPhone').click(function(){
   $('.phones').first().clone().appendTo('.dynamic-body-phone').show();
   attach_delete();
@@ -142,3 +148,7 @@ $("#txtPhoneAdd").val("");
 $("#txtAddress").val("");
 $("#txtAddressAdd").val("");
 </script>
+
+<script src='@Url.Content("~/Scripts/jquery-1.8.2.js")' type='text/javascript'></script>    
+<script src='@Url.Content("~/Scripts/jquery.validate.js")' type='text/javascript'></script>
+<script src='@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")' type='text/javascript'></script>

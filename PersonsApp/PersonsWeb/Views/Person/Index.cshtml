@@ -1,4 +1,6 @@
-﻿@model PersonViewModel
+﻿@using Persons.Core.Models
+
+@model PersonViewModel
 @{
     ViewData["Title"] = "Index";
 }
@@ -14,27 +16,33 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var user in Model.Users)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => user.FullName)
-                </td>
-                <td class="age">
-                    @Html.DisplayFor(modelItem => user.Age)
-                </td>
-                <td>
-                    <select class="form-select form-select-xs mb-3" aria-label=".form-select-xs">
-                        <option value="select">- Select -</option>
-                        <option value="married">Married</option>
-                        <option value="single">Single</option>
-                    </select>
-                </td>
-            </tr>
-        }
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => user.FullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => user.Age)
+                    </td>
+                    @using (Html.BeginForm("UpdateUser", "Person", FormMethod.Post, new { id = user.Id }))
+                    {
+                        <td>
+                            @Html.DropDownListFor(modelItem => user.Action, 
+                                new List<SelectListItem>
+                                {
+                                    new SelectListItem { Text = "Married", Value = "Married"},
+                                    new SelectListItem { Text = "Single", Value = "Single"}
+                                }, 
+                                "-Select-", new { @class = "form-control select" })
+                                @*onchange = "submit();"*@
+                        </td> 
+                    }
+                </tr>
+            }
     </tbody>
 </table>
-
+            
 <div class="modal fade" id="single" aria-labelledby="singleLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -68,27 +76,27 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="marriedLabel">Select Spouse</h5>
             </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-2">
-                        Spouse:
+            <div class="modal-body">              
+                    <div class="row">
+                        <div class="col-2">
+                            Spouse:
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control" list="datalistOptions" id="DataList" placeholder="Type to search...">
+                                <datalist id="datalistOptions">
+                                @foreach(var user in Model.Users)
+                                {
+                                    <option value = "@user.FullName (@user.Age)" />
+                                }
+                            </datalist>
+                        </div>
                     </div>
-                    <div class="col-8">
-                        <input class="form-control" list="datalistOptions" id="DataList" placeholder="Type to search...">
-                            <datalist id="datalistOptions">
-                            @foreach(var user in Model.Users)
-                            {
-                                <option value = "@user.FullName (@user.Age)" />
-                            }
-                        </datalist>
+                    <div class="row">
+                        <div class="column third">
+                            <input type="submit" name="btn" value="Cancel" class="btnCancel"/>
+                            <input type="submit" name="btn" value="Save" id="btnSaveMarried"/>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="column third">
-                        <input type="submit" name="btn" value="Cancel" class="btnCancel"/>
-                        <input type="submit" name="btn" value="Save" id="btnSaveMarried"/>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -97,13 +105,13 @@
 <script>
 $(function () {
 
-    $('select').change(function () {
+    $('.select').change(function () {
 
-        if ($(this).val() == "single") {
+        if ($(this).val() == "Single") {
             $('#single').modal('show');          
         }
 
-        if ($(this).val() == "married") {
+        if ($(this).val() == "Married") {
             $('#married').modal('show');
         }
        
@@ -122,12 +130,13 @@ $(function () {
 
         $(element).prop('disabled', true);
         $(element).removeClass('chosen');
+        
     });
    
     $('#btnSaveMarried').click(function() {
         const element = $('select.chosen');
-        const text = (element).find('option[value="married"]').text() + ' (' + $('#DataList').val().replace(/([0-9(])/g, '');
-        (element).find('option[value="married"]').text(text)
+        const text = (element).find('option[value="Married"]').text() + ' (' + $('#DataList').val().replace(/([0-9(])/g, '');
+        (element).find('option[value="Married"]').text(text)
         
         $(element).prop('disabled', true);
         $(element).removeClass('chosen');

@@ -4,6 +4,7 @@ namespace Persons.Core.Models
 {
     public class Person : Entity
     {
+        [Required(ErrorMessage = "Name is required.")]
         public string FirstName { get; set; }
         
         public string LastName { get; set; }

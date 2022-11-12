@@ -15,7 +15,7 @@ namespace Persons.Services
             var user = new User();
             user.FullName = $"{person.FirstName} {person.LastName}";
             user.Age = DateTime.Now.Year - person.BirthDate.Year;
-            user.Action = "select";
+            user.Action = "";
 
             _context.Users.Add(user);
             _context.SaveChanges();

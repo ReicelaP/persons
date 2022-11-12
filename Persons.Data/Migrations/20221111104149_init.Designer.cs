@@ -12,7 +12,7 @@ using Persons.Data;
 namespace Persons.Data.Migrations
 {
     [DbContext(typeof(PersonsDbContext))]
-    [Migration("20221106193449_init")]
+    [Migration("20221111104149_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

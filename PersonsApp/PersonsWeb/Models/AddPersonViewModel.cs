@@ -10,6 +10,7 @@ namespace PersonsWeb.Models
             Address = new List<string>();
         }
 
+        [Required(ErrorMessage = "Name is required.")]
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
