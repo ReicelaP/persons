@@ -85,13 +85,20 @@
                             Spouse:
                         </div>
                         <div class="col-8">
-                            <input class="form-control" list="datalistOptions" id="DataList" placeholder="Type to search...">
+                            
+                            @using (Html.BeginForm("UpdateUser", "Person", FormMethod.Post))
+                            {
+                                @Html.DropDownList(modelItem =>  user.Action, Model.DropDownList)
+                            }
+
+                            @*<input class="form-control" list="datalistOptions" id="DataList" placeholder="Type to search...">
                                 <datalist id="datalistOptions">
                                 @foreach(var user in Model.Users)
                                 {
                                     <option value = "@user.FullName (@user.Age)" />
                                 }
-                            </datalist>
+                            </datalist>*@
+
                         </div>
                     </div>
                     <div class="row">
@@ -140,6 +147,8 @@ $(function () {
         const text = (element).find('option[value="Married"]').text() + ' (' + $('#DataList').val().replace(/([0-9(])/g, '');
         (element).find('option[value="Married"]').text(text)
         
+        console.log(text)
+
         $(element).parent().submit();
         $(element).prop('disabled', true);
         $(element).removeClass('chosen');

@@ -2,6 +2,7 @@
 using Persons.Core.Models;
 using Persons.Core.Services;
 using PersonsWeb.Models;
+using System.Web.WebPages.Html;
 
 namespace PersonsWeb.Controllers
 {
@@ -35,7 +36,7 @@ namespace PersonsWeb.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(personModel);
+                return PartialView("PersonPartialView", personModel);
             }
 
             var person = new Person();
@@ -54,11 +55,22 @@ namespace PersonsWeb.Controllers
         [HttpPost]
         public IActionResult UpdateUser(User user)
         {
+            List<SelectListItem> list = new List<SelectListItem>();
+            var allDbUsers = _userService.GetAll();
+
+            foreach (var dbUser in allDbUsers)
+            {
+                list.Add(new SelectListItem() { Text = $"{dbUser.FullName} ({dbUser.Age})", Value = $"Married ({dbUser.FullName})" });
+            }
+
+            new PersonViewModel { DropDownList = list };
+
+
             var found = _userService.GetUser(user.Id);
             found.Action = user.Action;       
             _userService.Update(found);
 
-            return RedirectToAction("Index", "Person");
+            return View("Index", "Person");
         }
     }
 }
