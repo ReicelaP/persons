@@ -20,5 +20,10 @@ namespace Persons.Services
             _context.Users.Add(user);
             _context.SaveChanges();
         }
+
+        public User GetUser(int id)
+        {
+            return _context.Users.Find(id);
+        }
     }
 }
