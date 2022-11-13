@@ -8,42 +8,43 @@
 @Html.Partial("PersonPartialView", Model.Person)
 
 <div class="fixTableHead">
-<table class="table table-bordered table-light table-hover usersTable">
-    <thead>
-        <tr>
-            <th>First Name<br/>Last Name</th>
-            <th>Age</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-            @foreach (var user in Model.Users)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => user.FullName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => user.Age)
-                    </td>
-                    @using (Html.BeginForm("UpdateUser", "Person", FormMethod.Post, new { id = user.Id }))
-                    {
-                        <td>
-                            @Html.DropDownListFor(modelItem => user.Action, 
-                                new List<SelectListItem>
-                                {
-                                    new SelectListItem { Text = "Married", Value = "Married"},
-                                    new SelectListItem { Text = "Single", Value = "Single"}
-                                }, 
-                                "-Select-", new { @class = "form-control select" })
-                                @*onchange = "submit();"*@
-                        </td> 
-                    }
-                </tr>
-            }
-    </tbody>
-</table>
-            
+    <table class="table table-bordered table-light table-hover usersTable">
+        <thead>
+            <tr>
+                <th>First Name<br/>Last Name</th>
+                <th>Age</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+                @foreach (var user in Model.Users)
+                {
+                    <tr>
+                        <td class="nameColumn">
+                            @Html.DisplayFor(modelItem => user.FullName)
+                        </td>
+                        <td class="ageColumn">
+                            @Html.DisplayFor(modelItem => user.Age)
+                        </td>
+                        @using (Html.BeginForm("UpdateUser", "Person", FormMethod.Post, new { id = user.Id }))
+                        {
+                            <td class="actionColumn">
+                                @Html.DropDownListFor(modelItem => user.Action, 
+                                    new List<SelectListItem>
+                                    {
+                                        new SelectListItem { Text = "Married", Value = "Married"},
+                                        new SelectListItem { Text = "Single", Value = "Single"}
+                                    }, 
+                                    "-Select-", new { @class = "form-control select" })
+                                    @*onchange = "submit();"*@
+                            </td> 
+                        }
+                    </tr>
+                }
+        </tbody>
+    </table>
+</div>
+
 <div class="modal fade" id="single" aria-labelledby="singleLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -101,7 +102,6 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 
 <script>
