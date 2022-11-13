@@ -22,9 +22,8 @@
                             </div>
                             <div class="column right">
                                 @Html.TextBoxFor(m => m.FirstName, 
-                                    new { style="width:185px;" 
-                                     })
-                                @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                                    new { style="width:185px;", 
+                                    required="required" })
                             </div>
                         </div>    
                         <div class="row">

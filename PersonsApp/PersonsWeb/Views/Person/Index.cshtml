@@ -88,17 +88,8 @@
                             
                             @using (Html.BeginForm("UpdateUser", "Person", FormMethod.Post))
                             {
-                                @Html.DropDownList(modelItem =>  user.Action, Model.DropDownList)
+                                @Html.DropDownList("user.Action", Model.DropDownList , "Select", new { name = "user.Action", id="DataList" })
                             }
-
-                            @*<input class="form-control" list="datalistOptions" id="DataList" placeholder="Type to search...">
-                                <datalist id="datalistOptions">
-                                @foreach(var user in Model.Users)
-                                {
-                                    <option value = "@user.FullName (@user.Age)" />
-                                }
-                            </datalist>*@
-
                         </div>
                     </div>
                     <div class="row">
@@ -133,28 +124,49 @@ $(function () {
         $('select.chosen').removeClass('chosen')
     });
 
-    $('#btnSaveSingle').click(function() {
-        $('#single').modal('hide');
-        const element = $('select.chosen');
+    $('#btnSaveSingle').click(function() {     
 
-        $(element).parent().submit();
+        const element = $('select.chosen');
+        
+        const form = $(element).parent();
+        const data = $(form).serialize();
+            $.ajax({
+                method: "POST",
+                url: $(form).attr("action"),
+                data: $(form).serialize()
+            }).done((response) =>  {
+                console.log("submited");
+            });
+              
         $(element).prop('disabled', true);
         $(element).removeClass('chosen');
+         $('#single').modal('hide');
     });
-   
+
     $('#btnSaveMarried').click(function() {
         const element = $('select.chosen');
-        const text = (element).find('option[value="Married"]').text() + ' (' + $('#DataList').val().replace(/([0-9(])/g, '');
-        (element).find('option[value="Married"]').text(text)
-        
-        console.log(text)
+        console.log(element);
 
-        $(element).parent().submit();
+        const text = $(element).find('option[value="Married"]').text() + ' (' + $('#DataList').val() + ')';
+        console.log(text);
+        $(element).find('option[value="Married"]').text(text)
+        $(element).find('option[value="Married"]').val(text)
+
+        const form = $(element).parent();
+        const data = $(form).serialize();
+            $.ajax({
+                method: "POST",
+                url: $(form).attr("action"),
+                data: $(form).serialize()
+            }).done((response) =>  {
+                console.log("submited");
+            });
+
         $(element).prop('disabled', true);
         $(element).removeClass('chosen');
-
         $('#married').modal('hide');
         $('#DataList').val('');
-    });        
+    });         
 });
 </script>
+

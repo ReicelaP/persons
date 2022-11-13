@@ -1,5 +1,5 @@
-﻿using Persons.Core.Models;
-using System.Web.WebPages.Html;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Persons.Core.Models;
 
 namespace PersonsWeb.Models
 {
@@ -9,12 +9,16 @@ namespace PersonsWeb.Models
         {
             Users = new List<User>();
             Person = new AddPersonViewModel();
-            DropDownList = new List<SelectListItem>();
         }
         public List<User> Users { get; set; }
 
         public AddPersonViewModel Person { get; set; }
 
-        public List<SelectListItem> DropDownList { get; set; }
+        public IEnumerable<SelectListItem> DropDownList => Users.Select(user => new SelectListItem
+        {
+            Text = $"{user.FullName} ({user.Age})",
+            Value = user.FullName
+        }).ToList();
     }
 }
+

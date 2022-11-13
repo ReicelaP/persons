@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Persons.Core.Models;
 using Persons.Core.Services;
 using PersonsWeb.Models;
-using System.Web.WebPages.Html;
 
 namespace PersonsWeb.Controllers
 {
@@ -22,12 +22,14 @@ namespace PersonsWeb.Controllers
         public IActionResult Index()
         {
             List<User> users = _userService.GetAll();
-            return View(new PersonViewModel { Users = users});
+
+            return View(new PersonViewModel { Users = users });
         }
 
         public IActionResult Create()
         {
             var person = new AddPersonViewModel();
+
             return PartialView("PersonPartialView", person);
         }
 
@@ -55,22 +57,11 @@ namespace PersonsWeb.Controllers
         [HttpPost]
         public IActionResult UpdateUser(User user)
         {
-            List<SelectListItem> list = new List<SelectListItem>();
-            var allDbUsers = _userService.GetAll();
-
-            foreach (var dbUser in allDbUsers)
-            {
-                list.Add(new SelectListItem() { Text = $"{dbUser.FullName} ({dbUser.Age})", Value = $"Married ({dbUser.FullName})" });
-            }
-
-            new PersonViewModel { DropDownList = list };
-
-
             var found = _userService.GetUser(user.Id);
             found.Action = user.Action;       
             _userService.Update(found);
 
-            return View("Index", "Person");
+            return Ok(user);
         }
     }
 }

@@ -11,7 +11,6 @@ namespace PersonsWeb.Models
             Address = new List<string>();
         }
 
-        [Required(ErrorMessage = "*")]
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
