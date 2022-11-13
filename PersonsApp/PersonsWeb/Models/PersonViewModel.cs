@@ -14,11 +14,11 @@ namespace PersonsWeb.Models
 
         public AddPersonViewModel Person { get; set; }
 
-        public IEnumerable<SelectListItem> DropDownList => Users.Select(user => new SelectListItem
-        {
-            Text = $"{user.FullName} ({user.Age})",
-            Value = user.FullName
-        }).ToList();
+        public IEnumerable<SelectListItem> DropDownList => 
+            Users.Select(user => new SelectListItem
+            {
+                Text = $"{user.FullName} ({user.Age})",
+                Value = user.FullName}).ToList();
     }
 }
 

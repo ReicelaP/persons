@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace PersonsWeb.Models
+﻿namespace PersonsWeb.Models
 {
     public class AddPersonViewModel
     {
