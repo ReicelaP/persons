@@ -22,7 +22,7 @@
                             </div>
                             <div class="column right">
                                 @Html.TextBoxFor(m => m.FirstName, 
-                                    new { style="width:185px;", 
+                                    new { style="width:185px;" 
                                      })
                                 @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
                             </div>
@@ -148,7 +148,3 @@ $("#txtPhoneAdd").val("");
 $("#txtAddress").val("");
 $("#txtAddressAdd").val("");
 </script>
-
-<script src='@Url.Content("~/Scripts/jquery-1.8.2.js")' type='text/javascript'></script>    
-<script src='@Url.Content("~/Scripts/jquery.validate.js")' type='text/javascript'></script>
-<script src='@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")' type='text/javascript'></script>

@@ -26,19 +26,20 @@
                         <td class="ageColumn">
                             @Html.DisplayFor(modelItem => user.Age)
                         </td>
-                        @using (Html.BeginForm("UpdateUser", "Person", FormMethod.Post, new { id = user.Id }))
-                        {
-                            <td class="actionColumn">
+                        <td class="actionColumn">
+                            @using (Html.BeginForm("UpdateUser", "Person", FormMethod.Post))
+                            {
+                                @Html.HiddenFor(modelItem => user.Id)                         
                                 @Html.DropDownListFor(modelItem => user.Action, 
                                     new List<SelectListItem>
                                     {
+                                        new SelectListItem { Text = "-Select-", Value = "-Select-"},
                                         new SelectListItem { Text = "Married", Value = "Married"},
                                         new SelectListItem { Text = "Single", Value = "Single"}
                                     }, 
-                                    "-Select-", new { @class = "form-control select" })
-                                    @*onchange = "submit();"*@
-                            </td> 
-                        }
+                                    new { @class = "form-control select" })
+                            }
+                        </td> 
                     </tr>
                 }
         </tbody>
@@ -63,8 +64,8 @@
                     <div class="column left">
                     </div>
                     <div class="column right">
-                        <input type="submit" name="btn" value="Cancel" class="btnCancel"/>
-                        <input type="submit" name="btn" value="Save" id="btnSaveSingle"/>
+                        <input type="button" name="btn" value="Cancel" class="btnCancel"/>
+                        <input type="button" name="btn" value="Save" id="btnSaveSingle"/>
                     </div>
                 </div>
             </div>
@@ -108,7 +109,6 @@
 $(function () {
 
     $('.select').change(function () {
-
         if ($(this).val() == "Single") {
             $('#single').modal('show');          
         }
@@ -121,7 +121,7 @@ $(function () {
     });
 
     $('.btnCancel').click(function() {
-        $('.form-select').val("select");
+        $('select.chosen').val("-Select-");
         $('.modal').modal('hide');
         $('select.chosen').removeClass('chosen')
     });
@@ -130,9 +130,9 @@ $(function () {
         $('#single').modal('hide');
         const element = $('select.chosen');
 
+        $(element).parent().submit();
         $(element).prop('disabled', true);
         $(element).removeClass('chosen');
-        
     });
    
     $('#btnSaveMarried').click(function() {
@@ -140,11 +140,11 @@ $(function () {
         const text = (element).find('option[value="Married"]').text() + ' (' + $('#DataList').val().replace(/([0-9(])/g, '');
         (element).find('option[value="Married"]').text(text)
         
+        $(element).parent().submit();
         $(element).prop('disabled', true);
         $(element).removeClass('chosen');
 
         $('#married').modal('hide');
-
         $('#DataList').val('');
     });        
 });

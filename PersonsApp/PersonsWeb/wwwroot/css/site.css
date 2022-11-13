@@ -69,3 +69,28 @@ body {
     display: table;
     clear: both;
 }
+
+.fixTableHead {
+    overflow-y: auto;
+    height: 300px;
+    width: 60%;
+}
+
+.fixTableHead thead th {
+    position: sticky;
+    top: 0;
+}
+
+.ageColumn {
+    text-align: right;
+    width: 50px;
+}
+
+.actionColumn {
+    text-align: right;
+    width: 400px;
+}
+
+.nameColumn {
+    width: 200px;
+}

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PersonsWeb.Models
 {
@@ -10,7 +11,7 @@ namespace PersonsWeb.Models
             Address = new List<string>();
         }
 
-        [Required(ErrorMessage = "Name is required.")]
+        [Required(ErrorMessage = "*")]
         public string FirstName { get; set; }
 
         public string LastName { get; set; }

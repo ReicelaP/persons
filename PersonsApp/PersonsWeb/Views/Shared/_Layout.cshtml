@@ -9,10 +9,7 @@
     <link rel="stylesheet" href="~/PersonsWeb.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-
-    
-    
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>  
 </head>
 <body>
     <div class="container">
@@ -20,8 +17,10 @@
             @RenderBody()
         </main>
     </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
         

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Persons.Core.Models;
 using Persons.Core.Services;
-using Persons.Data;
 using PersonsWeb.Models;
 
 namespace PersonsWeb.Controllers
@@ -10,22 +9,18 @@ namespace PersonsWeb.Controllers
     {
         private readonly IEntityService<Person> _personService;
         private readonly IUserService _userService;
-        private readonly IPersonsDbContext _context;
 
         public PersonController
             (IEntityService<Person> personService, 
-            IUserService userService,
-            IPersonsDbContext context)
+            IUserService userService)
         {
             _personService = personService;
             _userService = userService;
-            _context = context;
         }
 
         public IActionResult Index()
         {
             List<User> users = _userService.GetAll();
-
             return View(new PersonViewModel { Users = users});
         }
 
@@ -38,6 +33,11 @@ namespace PersonsWeb.Controllers
         [HttpPost]
         public IActionResult Create(AddPersonViewModel personModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(personModel);
+            }
+
             var person = new Person();
             person.FirstName = personModel.FirstName;
             person.LastName = personModel.LastName;
@@ -52,14 +52,11 @@ namespace PersonsWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateUser(int id)
-        {           
-            var dbUser = _context.Users.Find(id);
-
-            var name = dbUser.FullName;         
-            var action = dbUser.Action;
-         
-            _userService.Update(dbUser);
+        public IActionResult UpdateUser(User user)
+        {
+            var found = _userService.GetUser(user.Id);
+            found.Action = user.Action;       
+            _userService.Update(found);
 
             return RedirectToAction("Index", "Person");
         }
